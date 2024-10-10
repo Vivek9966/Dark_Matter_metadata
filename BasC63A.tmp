@@ -1,0 +1,56 @@
+[gd_scene load_steps=10 format=3 uid="uid://cvdual8cbhupv"]
+
+[ext_resource type="Texture2D" uid="uid://vna0vd15g1w6" path="res://Bg/Background.png" id="1_c1qy0"]
+[ext_resource type="Script" path="res://Base_Level.gd" id="1_fhqr2"]
+[ext_resource type="PackedScene" uid="uid://cn1hsevho6oeh" path="res://player.tscn" id="2_iejbb"]
+[ext_resource type="PackedScene" uid="uid://cuussjs3msff7" path="res://Bg/Test Bg/parallax_background.tscn" id="3_2vq7i"]
+[ext_resource type="Texture2D" uid="uid://dgqe6tukbq8dd" path="res://PLayer/Untitled-removebg-preview.png" id="5_2s5cp"]
+[ext_resource type="PackedScene" uid="uid://bxq8x1isa7ag" path="res://Enemy/bandit.tscn" id="6_1ppwb"]
+[ext_resource type="PackedScene" uid="uid://85xfmetc0p1o" path="res://PLayer/health_pickup.tscn" id="7_5t16f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7jggy"]
+size = Vector2(1064.5, 609.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xq6nr"]
+size = Vector2(620, 398)
+
+[node name="Bg" type="Node2D"]
+script = ExtResource("1_fhqr2")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(240, 180)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(123, 89)
+texture = ExtResource("1_c1qy0")
+
+[node name="ParallaxBackground2" parent="." instance=ExtResource("3_2vq7i")]
+
+[node name="player" parent="." instance=ExtResource("2_iejbb")]
+
+[node name="ISS_Isamora" type="StaticBody2D" parent="."]
+
+[node name="entry" type="Area2D" parent="ISS_Isamora"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ISS_Isamora/entry"]
+position = Vector2(538, -4545)
+shape = SubResource("RectangleShape2D_7jggy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ISS_Isamora"]
+position = Vector2(548, -4658)
+shape = SubResource("RectangleShape2D_xq6nr")
+
+[node name="Sprite2D" type="Sprite2D" parent="ISS_Isamora"]
+position = Vector2(536, -4664)
+scale = Vector2(1.1128, 0.86087)
+texture = ExtResource("5_2s5cp")
+
+[node name="bandit" parent="." instance=ExtResource("6_1ppwb")]
+
+[node name="Health_pickup" parent="." instance=ExtResource("7_5t16f")]
+position = Vector2(349, 26)
+
+[connection signal="area_entered" from="ISS_Isamora/entry" to="." method="_on_entry_area_entered"]

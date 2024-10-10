@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://btccwffed3vlo"]
+
+[ext_resource type="Texture2D" uid="uid://dxao2n6ngqt24" path="res://UI/Space Background.png" id="1_1yh0w"]
+[ext_resource type="FontFile" uid="uid://bvyfe3evfgrx7" path="res://UI/Zorque.otf" id="2_ib4h1"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y2n38"]
+texture = ExtResource("1_1yh0w")
+
+[node name="Level_2" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_y2n38")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 278.0
+offset_top = 59.0
+offset_right = -252.0
+offset_bottom = -340.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.000844459
+theme_override_fonts/font = ExtResource("2_ib4h1")
+theme_override_font_sizes/font_size = 45
+text = "End Of Demo
+Planned future Updates!"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,0 +1,68 @@
+[gd_scene load_steps=10 format=3 uid="uid://cvdual8cbhupv"]
+
+[ext_resource type="Texture2D" uid="uid://vna0vd15g1w6" path="res://Bg/Background.png" id="1_c1qy0"]
+[ext_resource type="Script" path="res://Base_Level.gd" id="1_fhqr2"]
+[ext_resource type="PackedScene" uid="uid://cn1hsevho6oeh" path="res://player.tscn" id="2_iejbb"]
+[ext_resource type="PackedScene" uid="uid://cuussjs3msff7" path="res://Bg/Test Bg/parallax_background.tscn" id="3_2vq7i"]
+[ext_resource type="Texture2D" uid="uid://dgqe6tukbq8dd" path="res://PLayer/Untitled-removebg-preview.png" id="5_km23t"]
+[ext_resource type="PackedScene" uid="uid://85xfmetc0p1o" path="res://PLayer/health_pickup.tscn" id="7_5t16f"]
+[ext_resource type="PackedScene" uid="uid://qlpddy1j6lw5" path="res://Bg/animated_sprite_2d.tscn" id="7_kvwhw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7jggy"]
+size = Vector2(1468.25, 898)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qp68h"]
+size = Vector2(766, 520)
+
+[node name="Bg" type="Node2D"]
+script = ExtResource("1_fhqr2")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(240, 180)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(123, 89)
+texture = ExtResource("1_c1qy0")
+
+[node name="ParallaxBackground2" parent="." instance=ExtResource("3_2vq7i")]
+
+[node name="player" parent="." instance=ExtResource("2_iejbb")]
+
+[node name="ISS_Isamora" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="ISS_Isamora"]
+position = Vector2(542.451, -4588)
+scale = Vector2(1.29852, 1.13913)
+texture = ExtResource("5_km23t")
+
+[node name="entry" type="Area2D" parent="ISS_Isamora"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ISS_Isamora/entry"]
+position = Vector2(542.875, -4545)
+shape = SubResource("RectangleShape2D_7jggy")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="ISS_Isamora"]
+position = Vector2(511, -4545)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ISS_Isamora/StaticBody2D"]
+position = Vector2(19, -36)
+shape = SubResource("RectangleShape2D_qp68h")
+
+[node name="Health_pickup" parent="." instance=ExtResource("7_5t16f")]
+position = Vector2(349, 26)
+
+[node name="AnimatedSprite2D" parent="." instance=ExtResource("7_kvwhw")]
+position = Vector2(-21, 7)
+scale = Vector2(7.92188, 7.7602)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[connection signal="area_entered" from="ISS_Isamora/entry" to="." method="_on_entry_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
