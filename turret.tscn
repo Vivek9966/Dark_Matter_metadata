@@ -1,0 +1,143 @@
+[gd_scene load_steps=20 format=3 uid="uid://c71kdiulltmvu"]
+
+[ext_resource type="Texture2D" uid="uid://bjnvt225fvtx0" path="res://PLayer/Main ship weapons/PNGs/Main ship weapon - Projectile - Big Space Gun.png" id="1_ed5q0"]
+[ext_resource type="Texture2D" uid="uid://s3rccmjqiy86" path="res://PLayer/Main ship weapons/PNGs/impact.png" id="2_1rvt4"]
+[ext_resource type="Script" path="res://Bullets/turret.gd" id="2_yfadq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o4ae6"]
+atlas = ExtResource("1_ed5q0")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m6tmr"]
+atlas = ExtResource("1_ed5q0")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gnl25"]
+atlas = ExtResource("1_ed5q0")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kgtfs"]
+atlas = ExtResource("1_ed5q0")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wfwwq"]
+atlas = ExtResource("1_ed5q0")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lt8h0"]
+atlas = ExtResource("1_ed5q0")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2nqqc"]
+atlas = ExtResource("1_ed5q0")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8mnis"]
+atlas = ExtResource("1_ed5q0")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d84kj"]
+atlas = ExtResource("1_ed5q0")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ts6hf"]
+atlas = ExtResource("1_ed5q0")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eam4q"]
+atlas = ExtResource("2_1rvt4")
+region = Rect2(0, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s4hah"]
+atlas = ExtResource("2_1rvt4")
+region = Rect2(12, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4g2yr"]
+atlas = ExtResource("2_1rvt4")
+region = Rect2(24, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_udlw2"]
+atlas = ExtResource("2_1rvt4")
+region = Rect2(36, 0, 12, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6ppq4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o4ae6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m6tmr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gnl25")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kgtfs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wfwwq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lt8h0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2nqqc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8mnis")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d84kj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ts6hf")
+}],
+"loop": true,
+"name": &"fire",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eam4q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s4hah")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4g2yr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_udlw2")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"impact",
+"speed": 6.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f7jdl"]
+radius = 3.54463
+
+[node name="turret" type="AnimatedSprite2D" groups=["p_bullet"]]
+position = Vector2(-2.38419e-07, 1.19209e-07)
+rotation = 0.785398
+scale = Vector2(1.015, 1)
+sprite_frames = SubResource("SpriteFrames_6ppq4")
+animation = &"impact"
+script = ExtResource("2_yfadq")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="Area2D" type="Area2D" parent="." groups=["p_bullet"]]
+position = Vector2(-7.23376, 18.8272)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(7.23376, -18.8272)
+shape = SubResource("CircleShape2D_f7jdl")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
